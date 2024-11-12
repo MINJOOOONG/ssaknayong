@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- 문서의 기본 설정 -->
+  <meta charset="utf-8" /> <!-- 문서의 문자 인코딩을 UTF-8로 설정 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- 인터넷 익스플로러 호환성 모드를 사용 -->
+  
+  <!-- 모바일 설정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> <!-- 모바일 기기에서 화면 크기에 맞게 조절 -->
+  
+  <!-- 사이트 메타 정보 -->
+  <meta name="keywords" content="" /> <!-- 검색 엔진 최적화를 위한 키워드 -->
+  <meta name="description" content="" /> <!-- 페이지 설명 -->
+  <meta name="author" content="" /> <!-- 페이지의 저자 정보 -->
+
+  <title>haebayong</title> <!-- 웹페이지의 제목, 브라우저 탭에 표시됨 -->
+
+  <!-- 외부 스타일시트 및 폰트 -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+
+  <!-- 추가된 커스텀 스타일 -->
+  <style>
+    @font-face {
+        font-family: 'JNE-Ttobak-TTF-Extrabold';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-1@1.0/JNE-Ttobak-TTF-Extrabold.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    body {
+      font-family: 'JNE-Ttobak-TTF-Extrabold', sans-serif;
+      background-color: #5b8b7d;
+      color: #ffffff;
+    }
+
+    .heading_container h2 {
+      font-size: 3.8em;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .how_container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .circle-box {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      margin: 10px;
+      padding: 10px;
+      color: hsla(0, 20%, 1%, 0.836);
+      box-shadow: 5px 4px 8px rgba(5, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .circle-box.box1 {
+      background-color: #9feba2;
+    }
+
+    .circle-box.box2 {
+      background-color: #eb9fa2;
+      position: absolute;
+      top: 270px;
+      right: 350px;
+    }
+
+    .circle-box.box3 {
+      background-color: #89cff2;
+      position: absolute;
+      top: 270px;
+      left: 350px;
+    }
+
+    .circle-box .img-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      padding-top: 30px;
+    }
+
+    .circle-box .detail-box {
+      position: absolute;
+      top: 10px;
+      text-align: center;
+    }
+
+    .circle-box h5 {
+      font-size: 1.3em;
+      margin: 30px 0 5px;
+    }
+
+    /* 추가된 버튼 스타일 */
+    .play-audio-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.5em;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+    <!-- 헤더 섹션 시작 -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>해봐용</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+    <!-- 헤더 섹션 끝 -->
+
+    <!-- "Play Audio" 버튼 추가 및 오디오 삽입 -->
+    <button class="play-audio-button" onclick="document.getElementById('bgmAudio').play()">Play Audio</button>
+    <audio id="bgmAudio" src="bgm/roundbgm.mp3" loop></audio>
+
+    <!-- "How" 섹션 -->
+    <section class="how_section layout_padding">
+      <div class="heading_container">
+        <h2>원하시는 기능을 선택해주세용!</h2>
+      </div>
+      <div class="how_container">
+        <div class="circle-box box1">
+          <div class="img-box">
+            <img src="images/hiyong.png" alt="해봐용과 대화하기">
+          </div>
+          <div class="detail-box">
+            <h5>해봐용과 대화하기</h5>
+          </div>
+        </div>
+
+        <div class="circle-box box2" onclick="window.location.href='fruit.html'">
+          <div class="img-box">
+            <img src="images/subakyong.png" alt="해봐용이랑 과일찾기">
+          </div>
+          <div class="detail-box">
+            <h5>해봐용이랑 과일찾기</h5>
+          </div>
+        </div>
+
+        <div class="circle-box box3" onclick="window.location.href='number.html'">
+          <div class="img-box">
+            <img src="images/studyyong.png" alt="해봐용의 기억력찾기">
+          </div>
+          <div class="detail-box">
+            <h5>해봐용의 기억력찾기</h5>
+          </div>
+        </div>
+      </div>
+    </section>
+</body>
+</html>

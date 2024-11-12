@@ -1,0 +1,61 @@
+# HTML 페이지 내용 정의
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Simple Page</h1>
+    </header>
+
+    <main>
+        <p>This is a simple HTML page created using Python.</p>
+        <p>You can customize this template by editing the Python code.</p>
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2024 My Simple Page</p>
+    </footer>
+</body>
+</html>
+"""
+
+# HTML 파일로 저장
+with open("simple_page.html", "w") as file:
+    file.write(html_content)
+
+print("HTML 파일이 'simple_page.html'로 저장되었습니다.")

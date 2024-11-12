@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"> <!-- 문서의 문자 인코딩을 UTF-8로 설정하여 다양한 언어를 지원 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 웹을 위한 뷰포트 설정 -->
+    <title>숫자 기억 게임</title> <!-- 웹페이지의 제목을 "숫자 기억 게임"으로 설정 -->
+    <style>
+        /* 커스텀 폰트 정의 */
+        @font-face {
+            font-family: 'JNE-Ttobak-TTF-Extrabold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-1@1.0/JNE-Ttobak-TTF-Extrabold.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'JNE-Ttobak-TTF-Extrabold', Arial, sans-serif; /* 모든 텍스트에 적용할 기본 폰트를 JNE-Ttobak-TTF-Extrabold로 설정 */
+            display: flex; /* Flexbox 레이아웃을 사용하여 요소를 배치 */
+            flex-direction: column; /* Flexbox의 방향을 세로로 설정 */
+            align-items: center; /* 모든 요소를 수평 중앙 정렬 */
+            justify-content: center; /* 모든 요소를 수직 중앙 정렬 */
+            height: 100vh; /* 화면의 전체 높이를 사용하여 페이지를 구성 */
+            background-color: #5b8b7d; /* 배경색을 연한 회색으로 설정 */
+        }
+        #number-display {
+            font-size: 150px; /* 숫자 표시 텍스트의 크기를 크게 설정 */
+            margin-bottom: 10px; /* 숫자 표시와 아래 요소 간의 간격 설정 */
+        }
+        #input-area {
+            display: none; /* 처음에는 입력 영역을 숨김 */
+            flex-direction: column; /* 입력 영역의 요소들을 세로로 배치 */
+            align-items: center; /* 입력 영역의 요소들을 수평 중앙 정렬 */
+        }
+        input[type="text"] {
+            font-size: 50px; /* 입력 필드의 텍스트 크기를 크게 설정 */
+            padding: 10px; /* 입력 필드의 안쪽 여백 설정 */
+            width: 600px; /* 입력 필드의 너비를 600px로 설정 */
+            text-align: center; /* 입력 필드의 텍스트를 가운데 정렬 */
+            margin-bottom: 10px; /* 입력 필드와 버튼 사이의 간격 설정 */
+        }
+        button {
+            font-size: 50px; /* 버튼 텍스트의 크기를 크게 설정 */
+            padding: 10px 20px; /* 버튼의 안쪽 여백 설정 */
+            cursor: pointer; /* 마우스를 올리면 포인터 커서로 변경 */
+        }
+        #result {
+            font-size: 50px; /* 결과 텍스트의 크기를 크게 설정 */
+            margin-top: 20px; /* 결과 텍스트와 위 요소 간의 간격 설정 */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 숫자를 표시하는 영역 -->
+    <div id="number-display"></div>
+
+    <!-- 사용자가 숫자를 입력할 수 있는 영역, 처음에는 숨겨져 있음 -->
+    <div id="input-area">
+        <input type="text" id="user-input" placeholder="숫자를 입력하세요"> <!-- 숫자 입력 필드 -->
+        <button onclick="checkAnswer()">제출</button> <!-- 제출 버튼, 클릭 시 checkAnswer 함수 실행 -->
+    </div>
+
+    <!-- 결과를 표시하는 영역 -->
+    <div id="result"></div>
+
+    <!-- 배경 음악 삽입 -->
+    <audio src="C:/Users/zzz15/Desktop/K_HTML/haebayong/cryptop-html/roundbgm.mp3" autoplay loop>
+    </audio>
+
+    <script>
+        let generatedNumber = ""; // 게임에서 생성된 숫자를 저장하는 변수
+        let startTime; // 숫자가 생성된 시간을 저장하는 변수
+
+        function startGame() {
+            // 1000에서 9999 사이의 4자리 랜덤 숫자를 생성
+            generatedNumber = Math.floor(1000 + Math.random() * 9000).toString();
+            document.getElementById("number-display").textContent = generatedNumber; // 생성된 숫자를 화면에 표시
+            startTime = new Date().getTime(); // 게임 시작 시간을 기록
+
+            // 2초 후에 숫자를 숨기는 hideNumber 함수를 호출
+            setTimeout(hideNumber, 2000);
+        }
+
+        function hideNumber() {
+            document.getElementById("number-display").textContent = ""; // 숫자 표시를 빈 문자열로 변경해 숨김
+            document.getElementById("input-area").style.display = "flex"; // 입력 영역을 화면에 표시
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("user-input").value; // 사용자가 입력한 값을 가져옴
+            const elapsedTime = (new Date().getTime() - startTime) / 1000; // 경과 시간을 계산 (초 단위)
+
+            if (userAnswer === generatedNumber) {
+                // 사용자가 입력한 숫자가 맞으면 정답 메시지와 소요 시간을 표시
+                document.getElementById("result").textContent = `정답입니다! 소요 시간: ${elapsedTime.toFixed(2)}초`;
+            } else {
+                // 틀렸으면 오답 메시지와 정답을 표시
+                document.getElementById("result").textContent = `오답입니다. 정답은 ${generatedNumber}였습니다.`;
+            }
+
+            // 입력 영역을 다시 숨기고, 입력 필드를 비움
+            document.getElementById("input-area").style.display = "none";
+            document.getElementById("user-input").value = "";
+            setTimeout(startGame, 2000); // 2초 후에 새로운 게임을 시작
+        }
+
+        // 페이지 로드 시 게임을 시작
+        startGame();
+    </script>
+
+</body>
+</html>

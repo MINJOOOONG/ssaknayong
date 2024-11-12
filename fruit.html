@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>같은 그림 찾기 게임</title>
+    <style>
+        @font-face {
+            font-family: 'JNE-Ttobak-TTF-Extrabold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-1@1.0/JNE-Ttobak-TTF-Extrabold.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'JNE-Ttobak-TTF-Extrabold', Arial, sans-serif; /* 폰트 적용 */
+            text-align: center;
+            margin: 80px;
+            background-color: #086448;
+        }
+        h1 {
+            color: #fff; /* 제목 글씨 색상을 흰색으로 변경 */
+            font-size: 3em; /* 제목 글씨 크기 조정 */
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(4, 200px);
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            width: 200px;
+            height: 200px;
+            background-color: #eee;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 8em;
+            color: transparent;
+            font-family: 'JNE-Ttobak-TTF-Extrabold'; /* 폰트 적용 */
+        }
+        .card.flipped {
+            background-color: #FFF;
+            color: #000;
+        }
+        #message {
+            font-size: 2em;
+            margin: 30px;
+            color: #fff; /* 메시지 글씨 색상을 흰색으로 변경 */
+            font-family: 'JNE-Ttobak-TTF-Extrabold'; /* 폰트 적용 */
+        }
+    </style>
+</head>
+<body>
+    <h1>같은 그림 찾기 게임</h1>
+    <div class="game-container" id="gameBoard"></div>
+    <div id="message"></div>
+
+    <script>
+        const images = ['🍎', '🍌', '🍒', '🍓', '🍎', '🍌', '🍒', '🍓']; // 카드에 표시할 이모지 배열
+        let cardValues = [];
+        let cardIds = [];
+        let matchesFound = 0;
+
+        // 카드 셔플 함수
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // 게임 보드 생성
+        function createBoard() {
+            shuffle(images);
+            const gameBoard = document.getElementById('gameBoard');
+
+            for (let i = 0; i < images.length; i++) {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.setAttribute('data-id', i);
+                card.addEventListener('click', flipCard);
+                gameBoard.appendChild(card);
+            }
+        }
+
+        // 카드 뒤집기 함수
+        function flipCard() {
+            const selected = this;
+            const cardId = selected.getAttribute('data-id');
+            selected.textContent = images[cardId];
+            selected.classList.add('flipped');
+
+            cardValues.push(images[cardId]);
+            cardIds.push(cardId);
+
+            if (cardValues.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
+        }
+
+        // 카드 일치 확인 함수
+        function checkMatch() {
+            const cards = document.querySelectorAll('.card');
+            const [firstId, secondId] = cardIds;
+            const [firstValue, secondValue] = cardValues;
+
+            if (firstValue === secondValue) {
+                cards[firstId].removeEventListener('click', flipCard);
+                cards[secondId].removeEventListener('click', flipCard);
+                matchesFound++;
+                if (matchesFound === images.length / 2) {
+                    document.getElementById('message').textContent = '모든 카드를 맞췄습니다!';
+                }
+            } else {
+                cards[firstId].textContent = '';
+                cards[firstId].classList.remove('flipped');
+                cards[secondId].textContent = '';
+                cards[secondId].classList.remove('flipped');
+            }
+
+            cardValues = [];
+            cardIds = [];
+        }
+
+        // 페이지 로드 시 게임 시작
+        createBoard();
+    </script>
+</body>
+</html>
